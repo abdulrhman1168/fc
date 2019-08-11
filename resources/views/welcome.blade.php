@@ -1,5 +1,5 @@
 @extends('layouts.main')
 
 @section('page')
-  <h1>Hello Eservices 4</h1>
+  <h1>Hello Eservices </h1>
 @endsection
