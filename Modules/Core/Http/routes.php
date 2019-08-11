@@ -50,9 +50,4 @@ Route::group(['middleware' => 'web', 'prefix' => 'core', 'namespace' => 'Modules
     Route::post('/buildings/store', 'BuildingsController@store')->name('core.buildings.store');
     Route::get('/buildings','BuildingsController@index')->name('core.buildings');
 
-    Route::post('/deilyPermission/store', 'DailyMovementPermission@store')->name('core.deilyPermission.store');
-    Route::get('/deilyPermission/destroy/{id}', 'DailyMovementPermission@destroy')->name('core.deilyPermission.destroy');
-    Route::get('/deilyPermission','DailyMovementPermission@index')->name('core.deilyPermission');
-    Route::get('/deilyPermission/getEmployeeData/{user_mail}', 'DailyMovementPermission@getEmployeeData')->name('getEmployeeData');
-
 });

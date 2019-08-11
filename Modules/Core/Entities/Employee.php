@@ -22,7 +22,7 @@ class Employee extends Model
      * @var string
      */
 
-    protected $table = 'ERP.INT_GET_ALL_EMPLOYEE_INFO'; // hr_employees has been replaced with ERP.INT_GET_ALL_EMPLOYEE_INFO because it have some issues like it takes 40s in join!!
+    protected $table = 'mu_users'; // hr_employees has been replaced with ERP.INT_GET_ALL_EMPLOYEE_INFO because it have some issues like it takes 40s in join!!
 
 
     public function parent()

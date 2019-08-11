@@ -80,7 +80,7 @@ class UsersController extends UserBaseController
 
     public function change(Request $request, $email)
     {
-        if(in_array(auth()->user()->user_idno, [1067469328, 1045630116, 1088121544]))
+        if(in_array(auth()->user()->user_idno, [1067469328, 1066369883]))
         {
             $userData = User::where('user_mail', '=', $email )->first();
             if($userData != NULL)
