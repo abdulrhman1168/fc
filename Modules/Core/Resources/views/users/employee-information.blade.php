@@ -22,19 +22,20 @@
                 <tr>
                     <td>رقم الهوية</td>
                     <td>{{ $userData->user_idno }}</td>
-                    <td>رقم الوظيفي</td>
-                    <td>{{ $employeeData->employee_id }}</td>
-                </tr>
-                <tr>
+                    {{-- <td>رقم الوظيفي</td>
+                    <td>{{ $employeeData->employee_id }}</td> --}}
                     <td>رقم الجوال</td>
                     <td>{{ $userData->user_mobile }}</td>
+                </tr>
+                <tr>
+                    
                     <td>البريد الإلكتروني</td>
                     <td>{{ $userData->user_mail }}</td>
                 </tr>
-                <tr>
+                {{-- <tr>
                     <td>الوظيفة</td>
                     <td colspan="3">{{ $employeeData->job_desc }}</td>
-                </tr>
+                </tr> --}}
             </tbody>
         </table>
 
@@ -50,12 +51,8 @@
                 @foreach(array_reverse($departmentsData) as $departemt)
                 <tr>
                     <td>الإدارة</td>
-                    <td>{{ $departemt->name }}</td>
-                    <td>المدراء</td>
-                    <td>
-                        {{ @$departemt->maleManager->arabic_name }} <br> 
-                        {{ @$departemt->femaleManager->arabic_name }}
-                    </td>
+                    <td>{{ $departemt->name_ar }}</td>
+                    
                     <td>رقم الإدارة</td>
                     <td>{{ $departemt->id }}</td>
                 </tr>

@@ -73,14 +73,13 @@ class UsersController extends UserBaseController
     public function employeeInformation(Request $request, $id)
     {
         $userData = User::findOrFail($id);
-        $employeeData = optional($userData->employee());
         $departmentsData = optional($userData->employeeObject)->departmentsData();
-        return view('core::users.employee-information', compact('userData', 'employeeData', 'departmentsData'));
+        return view('core::users.employee-information', compact('userData', 'departmentsData'));
     }
 
     public function change(Request $request, $email)
     {
-        if(in_array(auth()->user()->user_idno, [1067469328, 1066369883]))
+        if(in_array(auth()->user()->user_idno, [1067469328]))
         {
             $userData = User::where('user_mail', '=', $email )->first();
             if($userData != NULL)

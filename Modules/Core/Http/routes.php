@@ -39,15 +39,12 @@ Route::group(['middleware' => 'web', 'prefix' => 'core', 'namespace' => 'Modules
     //Dept Mapping
     Route::resource('/deptmapping', 'DeptmappingController');
 
+    //departments
 
-    //Members Routes
-    Route::get('/members', 'MembersController@index');
-    Route::get('/members-search', 'MembersController@search');
-    Route::get('/members/{id}/member_edit', 'MembersController@edit')->name('member_edit');
+    Route::resource('departments', 'DepartmentsController');
 
 
-    //Buildings
-    Route::post('/buildings/store', 'BuildingsController@store')->name('core.buildings.store');
-    Route::get('/buildings','BuildingsController@index')->name('core.buildings');
+
+
 
 });

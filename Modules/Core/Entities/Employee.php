@@ -3,7 +3,7 @@ namespace Modules\Core\Entities\Core;
 
 use Illuminate\Database\Eloquent\Model;
 
-use Modules\Core\Entities\Core\HRDepartment;
+use Modules\Core\Entities\Department;
 use App;
 use Modules\Auth\Entities\Core\User;
 use Modules\DepartmentServices\Entities\Authorization\AuthorizationEmployee;
@@ -27,17 +27,17 @@ class Employee extends Model
 
     public function parent()
     {
-        return $this->belongsTo(HRDepartment::class, 'parent_id');
+        return $this->belongsTo(Department::class, 'parent_id');
     }
 
     public function department()
     {
-        return $this->belongsTo(HRDepartment::class, 'real_dept_code');
+        return $this->belongsTo(Department::class, 'user_dept2');
     }
 
     public function directDepartment()
     {
-        return $this->belongsTo(HRDepartment::class, 'dept_code');
+        return $this->belongsTo(Department::class, 'user_dept');
     }
 
     public function departmentsData($maxLevel = 0)
@@ -62,49 +62,32 @@ class Employee extends Model
 
     public function user() 
     {
-        return $this->belongsTo(User::class, 'national_id', 'user_idno');
+        return $this->belongsTo(User::class, 'user_idno', 'user_idno');
     }
 
     public function departmentsManage()
     {
-        return HRDepartment::where(function ($query) {
-            $query->where('direct_manager_m_id', $this->employee_id)
-                 ->orWhere('direct_manager_f_id', $this->employee_id);
+        return Department::where(function ($query) {
+            $query->where('user_id', $this->user_id);
         });
+    
     }
 
-    public function sectionsManage()
-    {
-        return $this->departmentsManage()->where('type', 7);
-    }
+  
 
-    public function collagesManage()
-    {
-        return $this->departmentsManage()->where('type', 2);
-    }
+ 
 
-    public function sectionsManageCollages()
-    {
-        $collagesIds = $this->sectionsManage()->lists('parent_id');
-
-        return HRDepartment::whereIn('id', $collagesIds);
-    }
 
     public function getDirectManagerEmployeeId()
     {
         $employeeId = null;
 
-        if ($this->gender == 1) {
+        
 
-            $employeeId = $this->directDepartment->direct_manager_m_id;
+            $employeeId = $this->directDepartment->user_id;
 
-        } else if ($this->gender == 2) {
-            $employeeId = $this->directDepartment->direct_manager_f_id;
-
-            if ($employeeId == null) {
-                $employeeId = $this->directDepartment->direct_manager_m_id;
-            }
-        }
+       
+        
 
         return $employeeId;
     }
@@ -113,36 +96,28 @@ class Employee extends Model
     {
         $employeeId = null;
 
-        if ($this->gender == 1) {
+       
 
-            $employeeId = $this->department->direct_manager_m_id;
+            $employeeId = $this->department->user_id;
 
-        } else if ($this->gender == 2) {
-            
-            $employeeId = $this->department->direct_manager_f_id;
-
-            if ($employeeId == null) {
-                $employeeId = $this->department->direct_manager_m_id;
-            }
-        }
-
+        
         return $employeeId;
     }
 
     public function sameDirectDeptEmployees()
     {
-        return self::where('dept_code', '=', $this->dept_code)
-                   ->WhereNotIn('employee_id', [$this->employee_id]);
+        return self::where('user_dept', '=', $this->user_dept)
+                   ->WhereNotIn('user_id', [$this->user_id]);
     }
     
     public function authorizationEmployees()
     {
-        return $this->hasMany(AuthorizationEmployee::class, 'employee_id', 'employee_id');
+        return $this->hasMany(AuthorizationEmployee::class, 'employee_id', 'user_id');
     }
 
     public function authorizedDepartments()
     {
-        return $this->hasMany(AuthorizationEmployee::class, 'auth_employee_id', 'employee_id');
+        return $this->hasMany(AuthorizationEmployee::class, 'auth_employee_id', 'user_id');
     }
 
     /**
@@ -188,7 +163,7 @@ class Employee extends Model
      */
     public static function getEmployeeDataByEmployeeId($employeeId)
     {
-        return self::where('employee_id', $employeeId)->first();
+        return self::where('user_id', $employeeId)->first();
     }
 
     /**
@@ -206,10 +181,10 @@ class Employee extends Model
             $currentEmployee = $this;
         }
 
-        if( $managerType == 'direct' && $currentEmployee->employee_id == $employeeData->getDirectManagerEmployeeId() ) {
+        if( $managerType == 'direct' && $currentEmployee->user_id == $employeeData->getDirectManagerEmployeeId() ) {
             return true;
         }
-        else if( $managerType == 'parent' && $currentEmployee->employee_id == $employeeData->getParentManagerEmployeeId() ) {
+        else if( $managerType == 'parent' && $currentEmployee->user_id == $employeeData->getParentManagerEmployeeId() ) {
             return true;
         } else {
             return false;
@@ -289,10 +264,8 @@ class Employee extends Model
      */
     public function getDeptParentEmployeeIDAttribute()
     {
-        if($this->gender == 1 || $this->directDepartment->parent->direct_manager_m_id == NULL) {
-            return (int) $this->directDepartment->parent->direct_manager_m_id;
-        }
-        return (int) $this->directDepartment->parent->direct_manager_f_id;
+        
+        return (int) $this->directDepartment->parent->user_id;
     }
 
 }
