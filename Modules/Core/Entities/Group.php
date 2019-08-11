@@ -72,8 +72,8 @@ class Group extends Model
 
   public static function syncFcGroup()
   {
-      // $usersIds = User::on('oracle')->pluck('user_id')->toArray();
-      $usersIds = User::pluck('user_id')->toArray();
+       $usersIds = User::on('mysql')->pluck('user_id')->toArray();
+      //$usersIds = User::pluck('user_id')->toArray();
       $group = self::findUnifiedGroupByName('fc');
       $group->users()->sync($usersIds);
   }
