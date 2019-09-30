@@ -1,0 +1,16 @@
+{
+    "name": "Hr",
+    "alias": "hr",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Hr\\Providers\\HrServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}

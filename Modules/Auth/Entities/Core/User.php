@@ -34,6 +34,7 @@ class User extends Authenticatable  implements Auditable, UserResolver
         return Auth::check() ? Auth::user()->getAuthIdentifier() : null;
     }
 
+    public $timestamps = false;
     /**
       * The table associated with the model.
       *
