@@ -22,8 +22,7 @@
         "owen-it/laravel-auditing": "^5.0",
         "predis/predis": "^1.1",
         "rap2hpoutre/laravel-log-viewer": "^0.19.1",
-        "yajra/laravel-datatables": "^1.0",
-        "yajra/laravel-oci8": "5.5.*"
+        "yajra/laravel-datatables": "^1.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.1",
