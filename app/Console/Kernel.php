@@ -24,21 +24,15 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
-
        
-
-        
-
-      
-
         $schedule->call(function () {
-            $job = new \Modules\DepartmentServices\Jobs\AuthorizationJob;
+            $job = new \App\Jobs\UpdateUsersJob;
             $job->handle();
         })->everyFiveMinutes()
           ->timezone('Asia/Riyadh')
-          ->name('update-authorizations');
+          ->name('update-users-from-eservices2-task');
+       
+
           
     }
 

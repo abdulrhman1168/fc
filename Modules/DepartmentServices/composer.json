@@ -1,0 +1,25 @@
+{
+    "name": "nwidart/departmentservices",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\DepartmentServices\\Providers\\DepartmentServicesServiceProvider"
+            ],
+            "aliases": {
+                
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\DepartmentServices\\": ""
+        }
+    }
+}

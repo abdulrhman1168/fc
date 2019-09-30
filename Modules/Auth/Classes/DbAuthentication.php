@@ -3,7 +3,7 @@ namespace Modules\Auth\Classes;
 
 use Modules\Auth\Interfaces\AuthenticationProvider;
 use Modules\Auth\Entities\Core\User;
-
+use Illuminate\Support\Facades\Hash;
 class DbAuthentication implements AuthenticationProvider
 {
 
@@ -14,18 +14,14 @@ class DbAuthentication implements AuthenticationProvider
    */
     public static function authenticate($credentials)
     {
-        $user = User::where('user_mail', '=', $credentials['email'])->first();
-        
-        if ($user != null) {
-            
-            if ($user->user_mail == $credentials['email']) {
-                
-                return true;
-            }
+      $user = User::where('user_mail', '=', $credentials['email'])->first();
 
-          //  dd($user->user_password);
-        }
+      if ($user != null) {
+          if ($user->password == md5($credentials['password'])) {
+              return true;
+          }
+      }
 
-        return false;
+      return false;
     }
 }

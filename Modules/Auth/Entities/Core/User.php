@@ -34,6 +34,7 @@ class User extends Authenticatable  implements Auditable, UserResolver
         return Auth::check() ? Auth::user()->getAuthIdentifier() : null;
     }
 
+    public $timestamps = false;
     /**
       * The table associated with the model.
       *
@@ -113,13 +114,13 @@ class User extends Authenticatable  implements Auditable, UserResolver
 
     public function employee()
     {
-        return Employee::where('national_id', $this->user_idno)
+        return Employee::where('user_idno', $this->user_idno)
                        ->first();
     }
 
     public function employeeObject() {
-      return $this->belongsTo(Employee::class, 'user_idno', 'national_id')
-                  ->where('national_id', $this->user_idno);
+      return $this->belongsTo(Employee::class, 'user_idno', 'user_idno')
+                  ->where('user_idno', $this->user_idno);
     }
 
     /**

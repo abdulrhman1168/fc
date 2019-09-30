@@ -128,17 +128,11 @@ class App extends Model
     public static function parentsFormMenu($parentResourceName = 'Modules')
     {
         $parentAppId = self::where('resource_name', $parentResourceName)->select('id')->first()->id;
-        $modules = array('Transport','Core','Auth');  
 
         $authorizedAppIds = self::$authorizedAppsIds;
 
         $apps = self::where('parent_id', '=', $parentAppId)
                     ->where('displayed_in_menu', true)
-                    ->Where(function ($query) use($modules) {
-                      for ($i = 0; $i < count($modules); $i++){
-                         $query->Orwhere('resource_name', 'like',  '%' . $modules[$i] .'%');
-                      }      
-                    })
                     ->when(is_array($authorizedAppIds),  function($query) use ($authorizedAppIds) {
                       return $query->whereIn('id', $authorizedAppIds);
                     })
