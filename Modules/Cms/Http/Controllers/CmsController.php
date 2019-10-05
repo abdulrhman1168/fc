@@ -14,6 +14,7 @@ class CmsController extends Controller
      */
     public function index()
     {
+        dd('dd');
         return view('cms::index');
     }
 
