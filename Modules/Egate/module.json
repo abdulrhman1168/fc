@@ -1,0 +1,16 @@
+{
+    "name": "Egate",
+    "alias": "egate",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Egate\\Providers\\EgateServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}
